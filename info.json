@@ -1,0 +1,12 @@
+{
+  "name": "Unfiltered_Air",
+  "version": "1.0.0",
+  "title": "Unfiltered Air",
+  "author": "WristWatch/OceanPhantom",
+  "description": "Reduces the effectiveness of air purifying machines",
+  "factorio_version": "1.1",
+  "dependencies": [
+    "base",
+    "flib"
+  ]
+}

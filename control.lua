@@ -1,0 +1,6 @@
+require("scripts.constants")
+require("scripts.migrations")
+require("scripts.poll")
+require("scripts.pollution_removers")
+require("scripts.surfaces")
+require("scripts.main")
