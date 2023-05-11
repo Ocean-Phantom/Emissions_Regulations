@@ -14,13 +14,6 @@ data:extend({
         setting_type = "runtime-global",
         default_value = false,
     },
-    -- {
-    --     type = "bool-setting",
-    --     name = "Radius_Mode",
-    --     order = "bb",
-    --     setting_type = "runtime-global",
-    --     default_value = false,
-    -- },
     {
         type = "int-setting",
         name = "Max_Linear_Pollution_Absorption",
@@ -35,7 +28,7 @@ data:extend({
         name = "Exponential_Const_Multiplier",
         order = "da",
         setting_type = "runtime-global",
-        default_value = 10000,
+        default_value = 50000,
         minimum_value = 0,
     },
     {
@@ -52,7 +45,7 @@ data:extend({
         name = "Logistic_Limit",
         order = "ea",
         setting_type = "runtime-global",
-        default_value = 25000,
+        default_value = 125000,
         minimum_value = 1
     },
     {
@@ -69,7 +62,7 @@ data:extend({
         name = "Logistic_z",
         order = "ec",
         setting_type = "runtime-global",
-        default_value = 11500,
+        default_value = 70000,
         minimum_value = 0,
     },
     {

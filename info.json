@@ -7,6 +7,6 @@
   "factorio_version": "1.1",
   "dependencies": [
     "base",
-    "flib"
+    "flib >= 0.12.0"
   ]
 }
