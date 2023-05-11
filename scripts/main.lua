@@ -141,16 +141,10 @@ local function on_gui_opened(event)
 	if event.entity ~= nil and global.Pollution_Absorbers[event.entity.unit_number] ~= nil then
 		if global.Pollution_Absorbers[event.entity.unit_number].Active == false then
 			local reason = nil
-			if global.Pollution_Absorbers[event.entity.unit_number].Inactivity_Reason == 1 then
-				reason = "having too many pollution removers on "..event.entity.surface.name
-			elseif global.Pollution_Absorbers[event.entity.unit_number].Inactivity_Reason == 2 then
+			if global.Pollution_Absorbers[event.entity.unit_number].Inactivity_Reason == 2 then
 				reason = "being too close to another pollution remover"
-			elseif global.Pollution_Absorbers[event.entity.unit_number].Inactivity_Reason == 3 then
-				player.create_local_flying_text{
-					text = {"alert-text.machine-ready", entity.localised_name},
-					create_at_cursor = true,
-				}
-				return
+			else
+				reason = "having too many pollution removers on "..event.entity.surface.name
 			end
 			player.create_local_flying_text{
 				text = {"alert-text.machine-disabled", entity.localised_name, reason},

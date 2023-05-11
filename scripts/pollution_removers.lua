@@ -81,31 +81,19 @@ function add_pollution_absorber(entity, player, newly_built)
         if global.Settings.Limit_Type == 1 then ---Linear
             if G_entity.Inactivity_Reason ~= 2 and math.abs(G_surface.Pollution_Absorption_Amount + G_entity.Pollution_Absorption_Amount) > G_surface.Pollution_Amount * global.Settings.Max_Linear_Pollution_Absorption then
                 deactivate_pollution_absorber(G_entity, false, 1)
-                if player ~= nil then
-                    player.create_local_flying_text{
-                        text = {"alert-text.machine-disabled", entity.localised_name, "too many pollution removers on "..G_surface.Surface.name},
-                        create_at_cursor = true,
-                    }
-                    -- player.play_sound{ path = "rc-warning-sound" }
-                end
-
+                goto PLAYER_ALERT
             elseif G_entity.Inactivity_Reason ~= 2 and G_surface.Pollution_Amount * global.Settings.Max_Linear_Pollution_Absorption > math.abs(G_surface.Pollution_Absorption_Amount + G_entity.Pollution_Absorption_Amount) then
                 activate_pollution_absorber(G_entity, true)
+                return
             end
 
         elseif global.Settings.Limit_Type == 2 then ---Exponential
             if G_entity.Inactivity_Reason ~= 2 and math.abs(G_surface.Pollution_Absorption_Amount + G_entity.Pollution_Absorption_Amount) > (G_surface.Pollution_Amount * global.Settings.Exponential_Const_Multiplier) ^ global.Settings.Exponential_Exponent then
                 deactivate_pollution_absorber(G_entity, false, 1)
-                if player ~= nil then
-                    player.create_local_flying_text{
-                        text = {"alert-text.machine-disabled", entity.localised_name, "too many pollution removers on "..G_surface.Surface.name},
-                        create_at_cursor = true,
-                    }
-                    -- player.play_sound{ path = "rc-warning-sound" }
-                end
-
+                goto PLAYER_ALERT
             elseif G_entity.Inactivity_Reason ~= 2 and (G_surface.Pollution_Amount * global.Settings.Exponential_Const_Multiplier) ^ global.Settings.Exponential_Exponent > math.abs(G_surface.Pollution_Absorption_Amount + G_entity.Pollution_Absorption_Amount) then
                 activate_pollution_absorber(G_entity, true)
+                return
             end
 
         elseif global.Settings.Limit_Type == 3 then ---Logistic
@@ -115,26 +103,23 @@ function add_pollution_absorber(entity, player, newly_built)
             ---additional check due to Logistic Function being undefined at x=0
             if G_surface.Pollution_Amount == 0 and G_entity.Inactivity_Reason ~= 2 then
                 deactivate_pollution_absorber(G_entity, false, 1)
-                if player ~= nil then
-                    player.create_local_flying_text{
-                        text = {"alert-text.machine-disabled", entity.localised_name, "too many pollution removers on "..G_surface.Surface.name},
-                        create_at_cursor = true,
-                    }
-                    -- player.play_sound{ path = "rc-warning-sound" }
-                end
+                goto PLAYER_ALERT
             elseif G_entity.Inactivity_Reason ~= 2 and math.abs(G_surface.Pollution_Absorption_Amount) > (global.Settings.Logistic_Limit / (1 + MATH_E^(-1 * k * t))) then
                 deactivate_pollution_absorber(G_entity, false, 1)
-                if player ~= nil then
-                    player.create_local_flying_text{
-                        text = {"alert-text.machine-disabled", entity.localised_name, "too many pollution removers on "..G_surface.Surface.name},
-                        create_at_cursor = true,
-                    }
-                    -- player.play_sound{ path = "rc-warning-sound" }
-                end
+                goto PLAYER_ALERT
             elseif G_entity.Inactivity_Reason ~= 2 and (global.Settings.Logistic_Limit / (1 + MATH_E^(-1 * k * t))) > math.abs(G_surface.Pollution_Absorption_Amount + G_entity.Pollution_Absorption_Amount) then
                 activate_pollution_absorber(G_entity, true)
+                return
             end
+        end
 
+        ::PLAYER_ALERT::
+        if player ~= nil then
+            player.create_local_flying_text{
+                text = {"alert-text.machine-disabled", entity.localised_name, "having too many pollution removers on "..G_surface.Surface.name},
+                create_at_cursor = true,
+            }
+            -- player.play_sound{ path = "rc-warning-sound" }
         end
     end
 end

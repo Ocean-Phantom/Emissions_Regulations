@@ -1,9 +1,9 @@
 {
-  "name": "Unfiltered_Air",
+  "name": "Emissions_Regulations",
   "version": "1.0.0",
-  "title": "Unfiltered Air",
+  "title": "Emissions Regulations - to the letter of the law, and not one step further",
   "author": "WristWatch/OceanPhantom",
-  "description": "Reduces the effectiveness of air purifying machines",
+  "description": "The Engineer has emissions standards to follow, and will do so to the letter of the law, and not one step further. \n\n Reduces the effectiveness of various air purifying/filtering machines. This mod does nothing on its own.",
   "factorio_version": "1.1",
   "dependencies": [
     "base",
